@@ -1,0 +1,102 @@
+Using the Pocketvoice ASM Routines
+Written by Ed
+
+> Also, using your routines, how do I set the address of where I want to play
+> the pocketvoice audio to?
+
+Well, you can either malloc a big array or just make a large array.
+
+Try something like this.  Or try exactly this.  :)
+
+Ed
+
+-------------------------------
+UWORD maxSoundSize = 0x0F00;
+UBYTE *sound;
+UWORD soundSize;
+
+void main()
+{
+   int joy;
+   UWORD numBytes, playBytes;
+   UWORD i;
+   fixed fixed1;
+
+   DISPLAY_ON;
+   DISABLE_RAM_MBC1;
+
+   sound = malloc(maxSoundSize);
+   if(sound == NULL)
+   {
+      printf("malloc error\n");
+      return;
+   }
+   else
+   {
+      fixed1.w = (UWORD)sound;
+      if(fixed1.b.l > 0xF)
+         printf("Malloc'ed at 0x%x%x\n", fixed1.b.h, fixed1.b.l);
+      else
+         printf("Malloc'ed at 0x%x0%x\n", fixed1.b.h, fixed1.b.l);
+   }
+
+ while(1)
+ {
+   initPVoice();/* init PVoice */
+   soundSize = 0;
+
+   printf("A to Record\n");
+   do
+   {
+      joy = joypad();
+   } while (!(joy & (J_A | J_B)));
+   waitpadup();
+
+      printf("Press and hold the A key to record.  Release A when 
+done.\n");
+      do
+      {
+         joy = joypad();
+      } while (!(joy & J_A));
+
+      /*record a sound*/
+      soundSize = recVoice(sound, maxSoundSize);
+      fixed1.w = soundSize;
+      if(fixed1.b.l > 0xF)
+         printf("recorded 0x%x%x\n", fixed1.b.h, fixed1.b.l);
+      else
+         printf("recorded 0x%x0%x\n", fixed1.b.h, fixed1.b.l);
+
+      waitpadup();
+
+   printf("Press a key to begin playback.\n");
+   do
+   {
+   	joy = joypad();
+   } while (!joy);
+   waitpadup();
+
+   /*play the sound*/
+
+
+   playBytes = playVoice(sound, soundSize);
+   fixed1.w = playBytes;
+   if(fixed1.b.l > 0xF)
+      printf("played 0x%x%x\n", fixed1.b.h, fixed1.b.l);
+   else
+      printf("played 0x%x0%x\n", fixed1.b.h, fixed1.b.l);
+
+   printf("A to Replay\nSTART to Reset\n");
+
+   do
+   {
+      joy = joypad();
+      if(joy & J_A)
+         playBytes = playVoice(sound, soundSize);
+   } while (!(joy & J_START));
+   waitpadup();
+
+ } //infinite while loop
+
+   return;
+}

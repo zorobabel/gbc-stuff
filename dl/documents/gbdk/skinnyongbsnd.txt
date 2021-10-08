@@ -1,0 +1,29 @@
+The Skinny on GB sound
+By Aaron St. John
+===========================================================
+
+Before you read this document, be sure to grab the gbsnd2 document (available from http://www.gbdev.org/news/dl.html) and have it read it through.  This document gives hints to using sound, not a thorough explanation!
+
+Rule #1:
+
+	Thou shalt bow to the almighty NR_52 register!  Without this register your GameBoy sound is nothing.  You may not realize it, but if bit 7 of NR_52 (all sound on/off) is not set, the real GB will not accept any changes to any sound registers.  Just because an emulator let's you set other sound registers doesn't mean the real GB will.
+
+BAD:						GOOD:
+Setting the regs in this order:	Using this order:
+NR_50						NR_52
+NR_51						NR_50
+NR_52						NR_51
+
+Rule #2:
+
+	Thou shalt re-set the envelope/tone registers every time you play a new sound.  Don't that just because you told the GB what envelope/freq/length to use last time you started a sound that the right values will be there again.  From what I can tell, the GB updates the envelope/freq/length regs every on-the-fly as it is playing a sound.  Just be safe, set the envelope/freq/length regs before you set the initial reg.
+
+Rule #3: 
+
+	Thou shalt never use VIN (bits 7 and 3 of NR_50).  VIN is made so that you can pump sounds through the cartridge pins into the GB.  As a homebrew coder, you'll probably never need to use VIN, so keep those bits off.  Things will just be generally nicer for you.
+
+Rule #4:
+
+	UM, haven't thought of one yet.
+
+

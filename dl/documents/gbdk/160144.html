@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <!-- Created with AOLpress/2.0 -->
+        <title>Basic 160x144 image loading in GBDK</title>
+    </head>
+    <body text="#000000" bgcolor="#ffffff">
+        <p>
+            <b><big>160x144 image loading</big></b><br>
+            Written by Mike Parks (BigRedPimp)<br>
+        </p>
+        <p>
+            <b>Basic 160x144 image loading.</b><br>
+            ----------------------------
+        </p>
+        <p>
+            First, convert your image using PCX2GB (prefered) to GBDK output format using
+            this on the command line 
+        </p>
+        <p>
+            <samp>pcx2gb n d filename.pcx filename.c</samp>
+        </p>
+        <p>
+            (I'll be using PCX2GB for this description, there are other utils you can
+            use for this). Next, in the output file, change the name of the unsigned
+            char to whatever you'd like. Then, in your project's main source file, put
+        </p>
+        <p>
+            <samp>#include &lt;drawing.h&gt;</samp>
+        </p>
+        <p>
+            Now, you'll put this whereever you want your image to appear: 
+        </p>
+        <p>
+            <samp>draw_image(unsigned char's name);</samp>
+        </p>
+        <p>
+            You should get a nice, full screen image.<br>
+            I used this in my South Park X-Treme demo and it worked fine. There were
+            some drawbacks to doing it this way, though (cart size was 128k, had to use
+            bank switching to hold the images).
+        </p>
+        <p></p>
+        <p>
+            <b>Advanced image loading. (Using CGB
+            colors)</b><br>
+            ------------------------------------------
+        </p>
+        <p>
+            There is a better way if you plan on using a different sized image. Convert
+            the image in PCX2GB using 
+        </p>
+        <p>
+            <samp>pcx2gb o d filename.pcx filename.c filename.map</samp>
+        </p>
+        <p>
+            This will not only optimize your image so it'll be smaller in code, it'll
+            also decrease the need for a larger cart size. (Thanx go out to Icehawk for
+            making the beginners docs to explain some of these things -
+            <a href="http://www.gbdev.org/news/">www.gbdev.org/news/</a>). 
+        </p>
+        <p>
+            What you need to do is include both your converted image (filename.c) and
+            your tile map (filename.map) into your project. You will then put the following
+            code into your project whereever you want your image to appear:
+        </p>
+        <p>
+            <samp>/* Beginning of code snippet <br>
+            The following can be changed:<br>
+            bgpal = the color palette being used<br>
+            MK = image tile data being used<br>
+            MKCGBMap = map of how your palettes will be displayed<br>
+            MKMap = map of how your tiles will be displayed */</samp>
+        </p>
+        <p>
+            <samp>// Set palette(s) for
+            image</samp><br>
+            <samp>set_bkg_palette(0,2,&amp;bgpal[0]);</samp>
+        </p>
+        <p>
+            <samp>// Set bkg tile data<br>
+            set_bkg_data(0,255,MK); </samp>
+        </p>
+        <p>
+            <samp>// Switch to VRAM<br>
+            VBK_REG = 1; </samp>
+        </p>
+        <p>
+            <samp>// Set the map for where your palettes will be
+            displayed<br>
+            set_bkg_tiles(0,0,20,18,MKCGBMap); </samp>
+        </p>
+        <p>
+            <samp> // Switch out of VRAM<br>
+            VBK_REG = 0;</samp>
+        </p>
+        <p>
+            <samp>// Set the map for where the bkg tiles will be
+            displayed<br>
+            set_bkg_tiles(0,0,20,18,MKMap);</samp>
+        </p>
+        <p>
+            <samp>// Show the background<br>
+            SHOW_BKG;</samp>
+        </p>
+        <p>
+            <samp>// Turn the display on</samp><br>
+            <samp>DISPLAY_ON; </samp>
+        </p>
+        <p>
+            That should help. If you have any more questions,
+            <a href="mailto:bigredpimp@juno.com">feel free to ask</a>.
+        </p>
+        <p>
+        </p>
+    </body>
+</html>

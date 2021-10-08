@@ -1,0 +1,28 @@
+Music Systems Resource Overview
+by Justin Bailey <justinbailey28@hotmail.com>
+
+I was doing a little research on all the GB music systems to see how 
+powerful they are and how much resources they take up.  Here is what I came 
+up with by hacking a few roms etc..  This is at 2mhz GBC..  
+Feedback/corrections are appreciated.  Also, any stats on RAM usage would be 
+cool!
+
+Audio Arts:
+7 scanline constant low
+12 scanlines peak
+
+Laxity:
+4 scanlines constant low
+6 scanlines peak
+
+Musyx:
+3 scanlines constant low
+15 scanlines peak
+
+Paragon 5:
+1 scanline constant low
+5 scanlines peak
+
+Shinen:
+3 scanlines constant low
+9 scanlines peak

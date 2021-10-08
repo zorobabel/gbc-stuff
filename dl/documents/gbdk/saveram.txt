@@ -1,0 +1,93 @@
+How to use Save RAM with GBDK
+Written by Rich Aidley
+
+This code uses the battery-backed RAM bank 0 ( the default bank selection )
+of Bung GB cards to store a persistant hiscore table. It could easliy be
+addapted to store level or other player information.
+
+The most important consideration is when to set-up the hiscore table in the
+battery RAM. You can't do it every time the game runs because it may wipe
+over a previous save. I get around this by using a four-byte string as an
+indicator of whether the table exists or not. The first time you run the
+game the string won't be in memory and the code knows to set up the hiscore;
+each time thereafter the string is in memory so the code can just read the
+hiscore table straight off. Note that you could ( and perhaps should ) use a
+checksum instead.
+
+The following two functions are taken from my game "Rogue Orange", available
+from Bung's site and elsewhere. The first function, InitHiscoreTable, is
+called once when the game is loaded and checks to see if the table is
+already in memory. The second, SaveHiscoreTable, is called whenever the
+table has changed and saves it to memory.
+
+Technical Notes:
+i.) Send 0x0a to address $0000 to enable read/write from SRAM ( actualy read
+may always be available, I've never checked. ) Send 0x00 to disable it. You
+should always disable between usage because if the player turns the machine
+off while the battery-backed ram is writeable it may become corrupted.
+
+ii.) The 'r','i','c','h' string in both routines is a guard string, and
+*not* the data itself. The data is the hiscore table, passed with memcpy().
+If you use these routines, *please* replace the 'rich' with a different
+string, or our programms won't be able to tell their data apart if loaded to
+a cart consequtively.
+
+iii.) If you use multiple RAM banks, you will have to add a switch to the
+correct RAM bank to the begining of both routines.
+
+iv.) These routines have not been tested either on a real gameboy cartridge
+( i.e commercial release ) or in a multi-game cartridge environment
+ although if Bung release the games from the last contest on their next 64MB
+cart, we'll find out. ) and may need modification for these situations.
+
+struct psScore hiscoreTable[5]
+
+void InitHiscoreTable()
+{
+UBYTE i,inRam=0;
+char *string;
+  //       Enable read-from SRAM----
+  *(UBYTE*)0x0000=0x0a;
+  string=(char*)0xa000;
+
+  //       Check for the presence of the check string.
+  if
+((string[0]=='r')&&(string[1]=='i')&&(string[2]=='c')&&(string[3]=='h'))
+  {
+    // load the hiscore table from ram.
+    inRam=1;
+    memcpy((void*)hiscoreTable ,(void*)0xa010, 5*sizeof(psScore));
+  }
+  *(UBYTE*)0x0000=0x00;	// disable read/write
+
+  if (!inRam)
+  {
+    // the check value didn't match, so initialize score table normally.
+    for(i=0;i<5;i++)
+    {
+      ZeroScore(&hiscoreTable[i]);
+      hiscoreTable[i].score[3]=i+1;
+      hiscoreTable[i].name[0]='.';
+      hiscoreTable[i].name[1]='.';
+      hiscoreTable[i].name[2]='.';
+    }
+    hiscoreTable[4].score[2]=2;
+  }
+}
+
+void SaveHiscoreTable()
+{
+char *string;
+  *(UBYTE*)0x0000=0x0a;
+
+  string=(char*)0xa000;	//Insert check string.
+  string[0]='r';
+  string[1]='i';
+  string[2]='c';
+  string[3]='h';
+
+  //Insert real data.
+  memcpy((void*)0xa010, (void*)hiscoreTable, 5*sizeof(psScore));
+  *(UBYTE*)0x0000=0x00;
+}
+

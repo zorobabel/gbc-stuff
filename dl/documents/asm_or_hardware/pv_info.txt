@@ -1,0 +1,92 @@
+;****************************************************
+;* BUNG Technology Limited PocketVoice Information  *
+;*--------------------------------------------------*
+;* Modified by Seth C. Nelson on 11.23.99           *
+;* NOTE: if any of the info in my translation is    *
+;* incorrect, please tell me!  thanks.              *
+;*                                                  *
+;* i can be reached at:				    *
+;* scnelson@nullpointer.net                         *
+;****************************************************
+;
+;Hardware components:
+;	An ASIC which emulates an MBC and is the sound chip controller.
+;	A sound chip which can record/play sound through mic/speaker to/from FlashROM memory.
+;	A 4M FlashROM as standard (can optionally be replaced with a 64M FlashROM chip)
+;	A microphone.
+;	A speaker.
+;
+;Power consumption:
+;	Showing Hi-Color picture with no sound on a GBC	: 70mA
+;	Showing Hi-Color picture with sound on a GBC	: 100mA-200mA (depends on sound volume)
+;	Menu for record/play Sound/mini games		: 50mA
+;	Sound recording on a GBC			: 70mA
+;	Playing mini game on a GBC			: 50mA (with sound channels on)
+;	Playing sound on a DMG				: 80mA-160mA (depends on sound volume)
+;	Recording sound on a DMG			: 60mA
+;	Playing sound on a GBP (not recommended)	: 120mA-380mA (depends on sound volume)
+;	Recording sound on a GBP			: 110mA
+;
+;MBC and ROM map:
+;	The new MBC uses 0xA003 as Offset control:
+;		Write 0x00-0xFF to 0xA003 to offset the start position in ROM (0x000000, 0x008000, 0x010000, 0x018000, ... , 0x7F0000, 0x7F8000).
+;	The new MBC uses the 8kB 0x6000-0x7FFF area in ROM as a switchable bank:
+;		The bank number can be written to 0x6000 (LSByte) and 0x7000 (MSByte) in the range of 0x0000-0x03FF (max 64Mbit). This value is used to control the ROM bank based on offset position.
+;	0x0000-0x5FFF is a fixed ROM area that is based on the offset position.
+;	0xA000-0xA003 is reserved for I/O, so it must be set off of SRAM by writing a '0'(or non '0A' byte) to 0x0000 before you start using I/O.
+;
+;Sound chip controller:
+;	To initialize the sound chip:
+;		Write 0x80 to 0xA000 before you use the sound chip. The byte rate is about 3kB per second.
+;	To start playing sound:
+;		Write 0x81 to 0xA000 and then sound data has to be written to 0xA001.
+;	To stop playing sound:
+;		Write 0x84 to 0xA000 and delay 10ms (about 1 frame period), then write 0x80 to 0xA000.
+;
+;Example sound playing routine:
+
+.playloop:
+		ld	a,(0xA000)
+		bit	3,a		; d3=1 for ready to write a new sound data
+		jr	z,.playloop	; about 330us per byte
+		ld	a,(nn)		; nn=bc, de or hl
+		ld	(0xA001),a
+		inc	nn
+		:
+		:
+		jr	.playloop
+		:
+		:
+		ld	a,0x84
+		ld	(0xA000),a
+		call	.delayoneframe
+		ld	a,0x80
+		ld	(0xA000),a
+		ret
+
+;	To start recording sound:
+;		Write 0x82 to 0xA000 and sound data can be read from 0xA001.
+;	To stop recording sound:
+;		Write 0x80 to 0xA000.
+;
+;Example sound recording routine:
+
+.recloop:
+		ld	a,(0xA000)
+		bit	3,a		; d3=1 for data ready to be read
+		jr	z,.recloop	; about 330us per byte
+		ld	a,(0xA001)
+		ld	(nn),a		; nn=bc, de or hl pointing to RAM buffer
+		inc	nn
+		:
+		:
+		jr	.recloop
+		:
+		:
+		ld	a,0x80
+		ld	(0xA000),a
+		ret
+
+;
+;(Information about writing data to FlashROM with a GB program will be launched in next release)
+;

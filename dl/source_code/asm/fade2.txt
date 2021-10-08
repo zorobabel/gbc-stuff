@@ -1,0 +1,148 @@
+Assembly Fade Routine
+Written by Paul Taylor
+1/7/99
+
+Here's one I knocked up. I figure it must be pretty naff, as it sometimes
+makes the LED light of the Gameboy go dim :-\ and most faders don't do that.
+
+Anyway, I thought I'd share it even if it is rubbish. Thanks for posting
+yours Jeff, I may stop using my one though I'm blown if I can understand how
+yours works. All I know is that I want one that's as nice as the one in
+Mario Golf!
+
+My code fades only the tile palettes (probably easily changed). It fades up
+and down from an all-white palette. You point HL at the palette you want to
+use. I designed it to be used in place of a straight LCD_ON/LCD_OFF, hence
+it does that as part of the code.
+
+Here it is, laugh at it by all means!!!
+
+Paul
+
+ ; enter with hl = palette
+
+RGK_FadeIn0::
+ push hl
+ ld hl,White_Palette
+ ld bc,8
+ call RGK_SetBkgPalette0 ; replace this with your own
+ call lcd_on0 ; replace this with your own
+ pop hl
+ ld c,31
+.lp: push bc
+ push hl
+ call Fade_Step
+ call RGK_VSynch     ; replace this with your own
+ ld hl,temp_palette
+ ld bc,$00000008
+ call RGK_SetBkgPalette0    ; replace this with your own
+ pop hl
+ pop bc
+ dec c
+ bit 7,c
+ jr z,.lp
+ call RGK_VSynch        ; replace this with your own
+ ld bc,8
+ call RGK_SetBkgPalette0      ; replace this with your own
+ ret
+
+ ; enter with hl = palette
+
+RGK_FadeOut0::
+ ld c,0
+.lp: push bc
+ push hl
+ call Fade_Step
+ call RGK_VSynch    ; replace this with your own
+ ld hl,temp_palette
+ ld bc,$00000008
+ call RGK_SetBkgPalette0    ; replace this with your own
+ pop hl
+ pop bc
+ inc c
+ bit 5,c
+ jr z,.lp
+ push hl
+ call lcd_off0    ; replace this with your own
+ ld hl,White_Palette
+ ld bc,8
+ call RGK_SetBkgPalette0    ; replace this with your own
+ pop hl
+ ret
+
+ ; enter with hl = palette, c = step (0 - 31), 31 = white
+
+Fade_Step:
+ ld de,temp_palette
+ ld b,64
+.lp1: ld a,[hl+]
+ ld [de],a
+ inc de
+ dec b
+ jr nz,.lp1
+
+ ld a,c
+ or a
+ ret z
+
+.lp2:
+ ld hl,temp_palette
+ ld b,32
+.lp3: ld a,[hl+]
+ ld e,a
+ ld a,[hl]
+ ld d,a
+ ld a,e
+ and %00011111
+ cp %00011111
+ jr z,.done1
+ inc e
+
+.done1: ld a,d
+ and %00000011
+ ld h,a
+ ld a,e
+ and %11100000
+ or h
+ ld h,$c0
+ cp %11100011
+ jr z,.done2
+
+ ld a,e
+ add %00100000
+ ld e,a
+ jr nc,.done2
+ inc d
+
+.done2: ld a,d
+ and %01111100
+ cp %01111100
+ jr z,.done3
+ ld a,d
+ add %00000100
+ ld d,a
+
+.done3:
+ dec l
+ ld a,e
+ ld [hl+],a
+ ld a,d
+ ld [hl+],a
+ dec b
+ jr nz,.lp3
+ dec c
+ jr nz,.lp2
+ ret
+
+ section "white_palette",data
+
+White_Palette:
+ dw $7fff, $7fff, $7fff, $7fff
+ dw $7fff, $7fff, $7fff, $7fff
+ dw $7fff, $7fff, $7fff, $7fff
+ dw $7fff, $7fff, $7fff, $7fff
+ dw $7fff, $7fff, $7fff, $7fff
+ dw $7fff, $7fff, $7fff, $7fff
+ dw $7fff, $7fff, $7fff, $7fff
+ dw $7fff, $7fff, $7fff, $7fff
+

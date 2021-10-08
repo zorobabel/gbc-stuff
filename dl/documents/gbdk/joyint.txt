@@ -1,0 +1,80 @@
+Using the Joypad interrupt in GBDK
+Written by GeeBee
+Original source code by Yoshiaki Araki
+
+--
+#include <gb/gb.h>
+#include <stdio.h>
+
+unsigned char vbl_iterator;
+unsigned char joy_iterator;
+
+void vbl () {
+        vbl_iterator++;
+}
+
+void joy () {
+        joy_iterator++;
+}
+
+void main () {
+        // init variable
+        vbl_iterator=0;
+        joy_iterator=0;
+
+
+        // setup interrupts
+        disable_interrupts();
+        DISPLAY_OFF;
+        add_VBL(vbl);
+        add_JOY(joy);
+        DISPLAY_ON;
+        enable_interrupts();
+
+
+        // main loop
+        while (1) {
+                if (vbl_iterator) {
+                        printf("vbl=%u\n",vbl_iterator);
+                }
+                if (joy_iterator) {
+                        printf("joy=%u\n",joy_iterator);        
+                }
+                // supress outputs
+                delay(1000);
+        }
+}
+---
+
+I had problems compiling this with GBDK v2.94. The
+problem was due to a missing closing comment */ in
+the comment before add_SIO and add_JOY in gb/gb.h.
+
+
+If the joypad interrupt does not properly work,
+although other interrupts such as vbl work well, 
+try the following:
+
+        set_interrupts (VBL_IFLAG | JOY_IFLAG);
+        enable_interrupts();
+        DISPLAY_ON;
+
+        keys = joypad();
+        P1_REG = 0x20;  // Cause U,D,L,R to joypad interrupt
+//        P1_REG = 0x10;  // Cause A,B,SELECT,START to joypad interrupt
+//        P1_REG = 0x30;  // Cause any button to joypad interrupt
+
+
+Normally the JoyPad control lines are in a relaxed state: (i.e. 
+P1_REG=0x30) This is usually a good thing. Switching to double speed 
+mode (for example) requires the JoyPad control lines to be in this 
+relaxed state. The problem here, though, is that the joy pad interrupt 
+does not work when in this relaxed state so you need one of the above 
+'P1_REG =' lines for an interrupt to occur. You will get an interrupt 
+when a button is pressed and often when it is released as well due to 
+switch bounce.
+
+Also, it's a good idea to turn the display on after enabling 
+interrupts. Otherwise, you may get a vblank interrupt occurring 
+mid-screen which can cause some screen garbage and other problems.
+

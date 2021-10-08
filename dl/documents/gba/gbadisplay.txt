@@ -1,0 +1,58 @@
+Gameboy Advance Display Overview
+Written by Matt D.
+
+Sprite size up to 64x64, 128 sprites maximum (subject to VRAM 
+restrictions and other things), tile map size up to 1024x1024 pixels 
+(depending on video mode), 16 alpha blend levels, sprites can be 
+16-colour or 256-colour again depending on the mode.
+You can use any multiple of 8 up to 64 in both width and height.
+The limit is 128 sprites and 128 8x8 sprites per scanline.  Which 
+means you can only have 16 64 pixel sprites per scan-line which is 
+still lots better than the GBC.  When you add rotate and zoom it can 
+cut into your H-blank time if you want but bear in mind that it can 
+restrict the max number of sprites you have because of extra 
+processing.  
+
+There are 3 character modes and 3 bitmapped modes.  There is 96K 
+of VRAM.
+
+There are two colour modes. 16 colours on 16 palettes or 256 colours 
+on 1 palette.  You have seperate OBJ and BG palettes.
+
+Tile size for tile maps dependent on the mode.  There are 3 tiled 
+modes and 3 bitmapped modes. Screen sizes range from 128x128 to 
+1024x1024 pixels.
+
+You can have up to 4 BG tilemaps at anyone time, each with there own 
+rotation, zoom, alpha and scroll settings.  Of course each takes up 
+their own amount of VRAM (which is 96K - still more than SNES) so use 
+of 4 BGs can fill up the space. On some modes you can have double 
+buffering.
+
+
+Tile maps be layered on top of sprites. There levels are thus:
+
+BACK
+1.      Background
+2.      BG priority 0
+3.      Sprite priority 0
+4.      BG priority 1
+5.      Sprite priority 1
+6.      BG priority 2
+7.      Sprite priority 2
+8.      BG priority 3
+9.      Sprite priority 3
+FRONT
+
+The background is just colour 0 of palette 0.
+
+DMA interrupts are useful for filling in the FIFO buffers for sound 
+or any other code that needs to stream information, say, from 
+external to internalRAM. I have not found any information regarding 
+DMA transfer speed but I wouldn't be surprised if it was keyed into 
+the clock speed (16.78 MHz).  The 4 DMAs have different priorities, 
+so one is interrupted when a higher priority is started.
+I cannot tell you either if the CPU stops during DMA transfer, but I 
+hope not.  The CGB DMA didn't halt the CPU did it?  Doesn't the 
+standard OAM transfer routine executes a minimum loop for 140 times 
+while it waits for DMA to be over?

@@ -1,0 +1,11 @@
+Gameboy Advance V-Blank and H-Blank cycles
+written by Matt D.
+
+I have calculated that H-Blank takes 272 cycles and V-Blank takes 
+83799 cycles.  Its based on these stats:
+ 	* CPU is 16.78 MHz
+	* H-Blank takes 16.212 us
+	* V-Blank takes 4.994 us
+ 
+Given that the thumb and ARM instruction sets are RISC instructions, 
+those cycles should translate into instructions.

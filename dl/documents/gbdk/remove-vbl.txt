@@ -1,0 +1,64 @@
+How to remove a function from a VBL interrupt in GBDK
+Written by Molasses
+molasses@ihug.com.au
+
+I noticed Quang was interested in this too, so here's a method I was 
+sent for removing functions from a VBL interrupt in GBDK.
+
+
+Ivo Wubbels wrote :
+<-------------------------------
+
+
+GBDK does not support remove functions; we wrote them ourselves. Add 
+this to the crt0.s in the lib directory:
+
+
+_remove_VBL::
+ PUSH BC
+ LDA HL,4(SP) ; Skip return address and registers
+ LD C,(HL)
+ INC HL
+ LD B,(HL)
+ LD HL,#.int_0x40
+ CALL .remove_int
+ POP BC
+ RET
+
+
+
+Course you need to rebuild the lib!!
+
+
+Ivo
+
+
+--------------------------------->
+
+
+After putting the asm in and rebuilding the lib, I also added the 
+following line to gb.h under the Interrupt Handlers section :
+
+
+void
+remove_VBL(int_handler h);
+
+
+
+GeeBee mentioned an alternative method that would also work :
+
+
+<---------------------------------
+
+
+Rather than remove it you could just enable/disable it if that
+works for you.
+
+
+ if (VBLEnabled)
+    {
+    }
+
+
+------------------------------------->
+

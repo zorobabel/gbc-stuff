@@ -1,0 +1,17 @@
+Game Shark Codes Format
+Written by GeeBee
+
+ AABBCCDD...
+ AA=code type
+ BB=Value to be inserted into address
+ CCDD=address to be used (CC=low byte DD=high byte)
+ for all code 'before' Action Replay 2 (game shark 2) you could
+ only have codes in the internal ram area of the gameboy.
+ The code type was not used by the code system.. the values inserted here
+ from the original version told Datel what type of trainer had been used
+ to find the cheat code.
+
+
+ Now the code type is used to mark the correct EXTERNAL ram page.
+ (I think) the code should be 80, 81, 82 and 83 this is for the
+ four pages of the external ram. (a000-bfff).

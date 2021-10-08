@@ -1,0 +1,119 @@
+Pocket Voice sample format
+Written by Joshua Neal
+
+---
+Fri, 19 Nov 1999
+---
+I have been working on the sample format, trying to figure out what it
+is.   Tried 8-bit samples, signed, unsigned, and weird things like
+inverse bit order, etc.).  Horrid results.  Tried interpreting as two
+4-bit unsigned samples packed into a single byte, results seem more
+promising.  Converting to an 8-bit PCM sample by treeating the lower
+four bits as the first sample and the upper four bits as the following
+sample seemed to produce the most intelligible results, though it still
+sounds much more noisy than the output played on the PV. 
+
+Attempting to verify the tone order by creating a sine wave table with
+4-bit samples, it seemed to me that the most accurate was the opposite,
+with the upper four bits as the first and the lower for as the following
+sample.. Perhaps my ears are brokeen, no idea.
+
+Attempting to convert an 8-bit sample to a 4-bit sample by taking the
+upper 4 bits of each sample has produced relatively bad sound, even
+moreso than I would expect..  Might be that I need to try a different
+sample or do some pre-processing on it before converting.
+
+Sampling rate of 6000 4-bit samples per second seemed to be about right,
+haven't worked on calculating the exact sample rate.
+
+
+---
+Thu, 09 Dec 1999
+---
+Ok.  I'm pretty sure I have it this time :-)  It seems to be 24000khz
+1-bit samples (low bit first).  Interpreting the pocketvoice sample data
+as this and just expanding into a 24000 khz 8-bit samples produces an
+intelligible but slightly noisy signal.  I'm guessing this noise is
+caused by it relying on the characteristics of the speaker, with the two
+different speakers being used here for playback (and associated filters)
+differ quite a bit, so maybe there would be a way to simulate the
+speaker in the pocketvoice to generate smoother 8-bit samples.  This
+could be handy for making wav files of stuff recorded with pocketvoice.
+
+As for creating 24000khz 1-bit samples from a wav file, this could be
+handy for creating game sounds and such.. I've found some info on 1-bit
+samples in old PC speaker/serial port sound output code, but these
+usually use hardware tricks to output a much higher sampling rate, which
+they trade for more bits of resolution so they can output the samples
+directly.  I did find a file that describes a very simple circuit for
+digitizing 1-bit samples at 16.5Khz, but says that it could be improved
+for greater accuracy.
+
+So what I'm looking for now is ways to convert from 1-bit to 8-bit
+cleanly in software.  And as far as actually doing any processing of the
+signal on the gameboy.. that's still giving me headaches :-)
+
+
+---
+Fri, 10 Dec 1999
+---
+> > It seems to be 24000khz 1-bit samples (low bit first).
+Erm.. Make that 24khz 1-bit samples.. Sorry for this mis-information. 
+The 24khz figure is from the ~3000 bytes/s from the Bung doc, multiplied
+by 8 bits..
+
+> If you are really talking about a 24 MHz sampling rate, at 1 bit per
+> sample, then its undoubtably sigma-delta converter raw output.
+> Converting from sigma-delta (or delta-sigma -- I've seen both terms
+> used) to conventional sampled data is not a simple process. Typically,
+> you "simply" apply an FIR filter, and decimate the filter output. The
+> devil is in the filter design.
+> 
+> At 24 MHz, the oversampling is already at least 500. I would guess
+> that you could get 16 bit at 44 KHz out of it with a good filter. A
+> lousy filter will only get you 10 bits at 22 KHz, but might be a good
+> place to start: subdivide the data into 1024 bit chunks, count the
+> number of 1's in each chunk, and use that number as your 10 bit
+> sample. This will give you 10 bits at 23.4 KHz.
+Sounds like this should still apply to 24khz, and may be a much better
+starting point for theory regarding 1-bit sampling, and may even be a
+better way to generate optimum samples for output than their microphone
+and sampling circuit generates. (The built-in sound effects exhibit a
+much better quality than those recorded with the mic, particularly in
+that there are periodic artifacts in the recorded data, probably caused
+by problems in the timing of the recording code.)
+
+As a side note, the pocketvoice flash writing code will need to be
+copied to RAM and executed from there.  With RGBASM I don't know how to
+assemble code into a ROM area to be copied into RAM later and have
+RGBASM properly calculate non-relative jp and call addresses correctly. 
+Anyone do this before (the only examples I have seen of this are sprite
+handlers, using only relative branches)?
+
+Here is a shortened version of what a recording of a sine wave looks
+like, mebbe I'm missing something obvious:
+
+0000000000000000010111111111111111110100000000000000001011111111111111010000000000000000
+
+
+Other misc notes:
+I'm basing 24khz on the byte rate (3000/sec according to bung) times 8. 
+It seems to be the simplest possible solution, just a shift register to
+output the samples at the proper rate, and relying on the speaker and a
+largish cap (filtering dc + low-frequencies?) working to filter to
+clean up the mess (which probably explains why they used an standard
+speaker cone rather than a smaller, more compact piezo disc that would
+have a low-pass cutoff of a much higher frequency.)  Recording I guess
+could use just a differentiator and a comparator circuit.
+
+Also, outputting samples of all $0, gives silence, probably +0v across
+the speaker.. Outputting $FF gives silence with very quiet noise,
+possibly +5v noise on the input to the amplifier circuit.  Also, the
+complete lack of amplitude variation is something mentioned about the
+limitation of using 1-bit samples.  I noted this when recording sine
+waves, I couldn't make it any louder or softer by changing the volume or
+moving the pocketvoice in relation to the speaker playign the sine
+waves...
+
+This should be easy to confirm on a scope, maybe someone can check this
+out... 

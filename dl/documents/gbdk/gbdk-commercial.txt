@@ -1,0 +1,33 @@
+Commercial Gameboy (Color) Games Written in GBDK
+By Quang
+
+This is completely irrelavent information, but someone might find it
+intersting.
+using David Philip's program  Is GBDK
+http://david.acz.org/isgbdk.zip
+
+
+I've managed to identify the following commercial games written in GBDK
+
+
+Game                 Publisher
+----------------------------------------------
+Logical              Sunsoft/THQ
+Mahjong King (J)     Cobra Team
+Meta Mode (J)        Koei
+Pro Darts            Vatical Entertainment
+Qix Adventure (J)    Taito
+Sweet Ange (J)       Koei
+----------------------------------------------
+
+
+If anybody know's of any other commercial GBDK games that have been
+released,
+it would be intersting to here which.
+
+
+Meta Mode seems to be a nice little RPG, shame it's all in japanese.
+Qix Adventure uses a simple APA map, and isn't slow.
+Interesting to see that 4 of the games are Japanese. But as for the quality
+of
+the gameplay / graphics / sound of all the games, it's all very suspect.

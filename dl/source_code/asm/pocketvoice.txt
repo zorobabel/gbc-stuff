@@ -1,0 +1,54 @@
+Was writing routines for the Pocket Voice to play samples, couldn't get
+them to work based on the info at:
+
+http://www.bung.com.hk/support/zip_file/pvinfo1.zip
+
+Finally started looking at the Pocket Voice rom, and found a routine
+called before playing samples that isn't described in that document. 
+After copying the routine into my own project, the playback worked.  The
+routine writes alternating values of $82 and $A2 to $A000, 200 times
+with a short delay in between.
+
+It gets called just before writing the $81 to $A000.  Here's the
+routines, in case it saves someeone an evening's worth of time:
+
+WeirdRoutine::
+        ld      de,$200
+        ld      a,$82
+.loop   ld      [$A000],a
+        xor     $20
+        ld      b,a
+        push    de
+        ld      de,$18
+        call    Delay1
+        pop     de
+        dec     de
+        ld      a,e
+        or      d
+        ld      a,b
+        jr      nz,.loop
+        call    StopSound
+        ld      de,$600
+        call    Delay1
+        ret
+
+StopSound::
+        ld      a,$84
+        ld      [$A000],a
+        ld      de,$600
+        call    Delay1
+        ld      a, $80
+        ld      [$A000],a
+        ret
+
+Delay1::
+.loop   dec     de
+        ld      a,e
+        cp      0
+        jr      nz,.loop
+        ld      a,d
+        cp      0
+        jr      nz,.loop
+        ret
+
+- Joshua Neal <tinara@goodnet.com>

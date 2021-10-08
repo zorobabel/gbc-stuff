@@ -1,0 +1,315 @@
+GBA: IGNpocket's Game Boy Advance FAQ
+
+All the questions you have on Nintendo's next handheld are right here. 
+
+Only a couple months to go and the Game Boy Advance will no longer be 
+shrouded in mystery. We've been running this Game Boy Advance FAQ 
+since the day Nintendo announced the successor to the Game Boy Color 
+back in August 1999, and more information has flowed our way since 
+then. We've seen the system, or rather, the development kit, so 
+everything in this FAQ has been confirmed by us, but not officially 
+by Nintendo. 
+
+-----------------------------------------------------------------------
+
+Will there be a handheld system from Nintendo better than the Game 
+Boy Color?
+
+Naturally. Nintendo is constantly developing new hardware, in hopes 
+that something will succeed its current product. In the case of the 
+handheld market, technology has advanced and cheapened enough that 
+the company can finally release a more powerful, color portable at 
+an affordable, compatible price tag. 
+
+
+What will this system be called?
+
+The current in-house name is the Game Boy Advance. It's known in 
+development circles as AGB, just as the Game Boy Color is known as 
+CGB and the black-and-white Game Boy is known as DMG (for Dot Matrix 
+Game). Will this be the final name? It's hard to tell but the name has 
+certainly caught on in the industry. We'll know in two months.
+
+
+When was the system announced to the public?
+
+Word leaked out about the Game Boy Advance at the Nintendo Space 
+World in late August, but no specifics were offered.
+
+
+The first announcement on the Game Boy Advance was offered by 
+Nintendo Co. LTD on September 1, 1999. Sources believe it was 
+announced this early because of the public announcement of Mobile 21, 
+a Nintendo/Konami company collaboration that will develop 
+communication tools and games for the Game Boy Advance and Nintendo 
+Dolphin system.
+
+
+When is the system going to come out?
+
+Right now there isn't a set date, just a vague one. It'll be released 
+first in Japan by the end of 2000. the US market's current release 
+date is First Quarter 2001.
+
+
+When will we first see the Game Boy Advance in action?
+
+The first public unveiling of the Game Boy Advance will be at Space 
+World 2000, a Nintendo event in Tokyo Japan this August 24-26, 2000.
+
+
+What is the system going to look like?
+
+The Game Boy Advance will be a drastic turn in Game Boy system design. 
+Where the original Game Boy, Game Boy Pocket, and Game Boy Color were 
+vertically-aligned systems, the Game Boy Advance will change the way 
+you hold the Game Boy system a horizontal design much like the Atari 
+Lynx, Game Gear, and NeoGeo Pocket Color. Nintendo hasn't released 
+any photos of the system design, holding onto those details until 
+Space World 2000.
+
+
+I've seen pictures of the Game Boy Advance. Where did you get those?
+
+We have no idea what the system will look like other than the screen 
+and system size and amount of buttons. 
+
+
+Okay, so what are these specifications?
+
+Here they are as supplied by Nintendo:
+
+Game Boy Advance vs. Game Boy Color 
+
+Game Boy Advance 				Game Boy Color 
+CPU 
+32-Bit ARM with embedded memory 		8-bit Z80 
+Screen 
+2.9" TFT reflective screen			2.3" TFT reflective screen
+240x160 resolution 				160x140 resolution 
+65,535 possible colors 				32,000 possible colors
+511 simultaneous colors in character mode; 	56 simultaneous colors  
+32,768 simultaneous colors in bitmap mode  
+Size (mm) 
+135w x 80h x 25d 				75w x 133h x 27d 
+Weight 
+140g 						138g 
+Power 
+2 AA batteries 					2 AA batteries 
+Battery Life 
+20 hours 					10 hours 
+Software 
+Cartridge format				Cartridge format
+GB Color compatible				Game Boy compatible  
+Game Boy compatible  
+
+
+How large will the game screen be?
+
+The Game Boy Advance system will also be unique in the sense that the 
+LCD screen will be in a widescreen format.
+
+
+Will the screen be backlit?
+
+No, the LCD screen will be very similar to what's already in the Game 
+Boy Color, a reflective TFT screen provided by Sharp Electronics.
+
+There are many reasons why Nintendo is not going with backlighting --
+
+Battery life. Adding a light will drain battery power and require 
+more batteries. The Atari Lynx and Game Gear both required six AA 
+batteries, and the systems drained a new set in only three hours. The 
+Game Boy Advance will remain power economical by only requiring two 
+AA batteries that last 20 hours. The only thing needed is an external 
+light source. 
+Cost. A light costs more money, both in R&D and in material. By going 
+with the reflective LCD, it makes the system cost less to manufacture 
+and, ultimately, to buy. 
+Durability. A light could potentially burn out on the system, 
+rendering the Game Boy Advance useless. One hard bump and that's the 
+end of the picture.
+
+
+How many buttons will the system have?
+As confirmed on the Game Boy Advance development kit shown to us by 
+developer sources, the Game Boy Advance will have an 8-way digital 
+pad, two action buttons (A and B), two shoulder buttons (L and R), 
+and a start and select button. In total, a D-pad and six buttons, four 
+of which will be used for normal action.
+
+
+What will the system be able to do? What will games look like?
+
+Developers have compared the Game Boy Advance system capabilities to 
+that of the Nintendo Super NES system. The Game Boy Advance will be 
+able to have transparency effects, scaling and rotating effects (like 
+Mode 7 on the Super NES). The sound chip will be able to handle both 
+stereo and Dolby Surround effects through the headphone jack.
+
+
+Will the Game Boy Advance be capable of 3D graphics?
+
+The nature of the system's 32-bit architecture means the system will 
+have at least rudimentary 3D capabilities - texture-mapped 3D polygons. 
+How many the system can display and at what framerate remains to be 
+seen. Developers have debated this capability in the Game Boy Advance, 
+but most agree that the system can at least do something similar to 
+Starfox on the Super Nintendo.
+
+
+Will the system be able to play Game Boy and Game Boy Color games?
+
+Yes. The Game Boy Advance will be 100% compatible with the older Game 
+Boy and Game Boy Color games. Since the GBA screen will have more 
+pixels, the image for the older games will have to be bordered in 
+order to fit on-screen.
+
+
+What games are being made for the Game Boy Advance?
+
+With Konami heavily involved in the development of software tools for 
+the system, it's a good bet that at least this company has its hands 
+in game development for Game Boy Advance. Many Game Boy Color 
+developers have expressed great interest in starting development on 
+the Game Boy Advance. The development kits are now available to 
+official Nintendo third party developers.
+
+More than 60 US and European developers have signed on and received 
+Game Boy Advance development kits. Companies like Crawfish, Digital 
+Eclipse, Camelot, Handheld Games, Rare, and Classified Games are all 
+working on games for the system.
+
+In August we will know what's currently in the works. Right now we 
+know of a few GBA games in development:
+
+Vigilante 8: Second Offense 
+Star Trek: Invasion 
+Magical Vacation (Japanese RPG)
+
+And Nintendo has been rumored to have a Kart racing game, a Mario game, 
+a shooter, and an adventure game in development in-house. What these 
+games will be we'll just have to wait until August.
+One of the games being shown in demo form is Yoshi's Story, a port of 
+the N64 game. While it hasn't been announced as an official product, 
+Yoshi's Story has a good chance of being one of the first GBA games to 
+market.
+
+
+How do you know so much about the Game Boy Advance if Nintendo hasn't 
+announced specifics yet?
+
+On April 10, 2000, Nintendo held the Game Boy Advance Game Developers 
+Conference 2000, a forum for developers to learn about the system 
+before the companies get their development kits. Even though it wasn't 
+open to anyone but official third party companies, we got the scoop 
+straight from the people who attended the show.
+
+
+What kind of media will the Game Boy Advance use for its games?
+
+The unit will utilize cartridges like the Game Boy Color. The system 
+is much too small to utilize a CD drive, and the unit would be much 
+to expensive if it included a Mini-Disc reader. Cartridges can be 
+relatively any size (just look at the N64 -- cartridges range from 
+8 megabytes to 64 megabytes), and they're very durable and portable. 
+Cost is always an issue -- but it's a given that Nintendo would want 
+to keep the games as comparable in price to the past Game Boy systems, 
+from 20-40 dollars apiece. Plus, the system needs to be backward 
+compatible, so the cartridge slot will be exactly the same shape and 
+size as the Game Boy Color.
+
+How long will batteries last on the Game Boy Advance?
+
+Nintendo has claimed that the system will last around 20 hours on two 
+AA batteries - the same length of time and battery power of the 
+current Game Boy Color system. 
+
+
+What type of peripherals will be available for the Game Boy Advance?
+
+Nintendo plans on releasing a Game Boy Camera-style peripheral for the 
+Game Boy Advance, a full-color device that will integrate with the 
+system's internet capabilities. With the Game Boy Camera in place, 
+gamers will be able to see you as you play multiplayer games, for 
+example. Other peripherals include an Infra-red link since the 
+Game Boy Advance will not have an IR port built-in. There is also a 
+generic rumble cartridge and color printer planned.
+
+
+How will the Game Boy Advance integrate with Nintendo's next console?
+
+Details are sketchy, but if the current Game Boy Color/64DD plans are 
+any indication, the Game Boy Advance will integrate with the Dolphin 
+directly. Most likely games will use the system as an external 
+controller with screen, where each player has his or her own hidden 
+view of certain parts of the game. The unit will have the ability, 
+with a specific cable, to plug into the game systems from the GBA's 
+link port to the systems' controller ports.
+
+In a horse racing game, for example, you can make bets on the Game 
+Boy Advance without your opponents seeing what you're up to and then 
+watch the action on the television screen. Or, in a first-person 
+shooter, the Game Boy Advance could be used as a map or radar without 
+having to clutter up the screen.
+
+
+How will the Game Boy Advance integrate with the Internet?
+
+When the Game Boy Advance was first announced back in September 1999, 
+Nintendo Co. LTD (Nintendo's Japan branch) brought to light the fact 
+that cell-phone connectivity would be a major focus for the new 
+system. By hooking a cellular phone up to the Game Boy Advance, you'll 
+be able to download game software, participate in multiplayer games, 
+enter chat rooms, and read e-mail, all on your Game Boy Advance 
+system. Specifics about which phones will be required (digital/analog) 
+have not been revealed yet, nor have pricing plans, service 
+agreements, etc.
+
+However, Nintendo of America doesn't seem interested in bringing this 
+feature over to the US, as evident at the lack of details given to 
+developers. Game developers have the development kits in-hand, and 
+there is no documentation regarding any Internet support. It might be 
+in the works for the future, but right now the main focus for the 
+Game Boy Advance is games. 
+
+
+Who is involved with the development of the Game Boy Advance?
+
+ARM Corporation is the company responsible for the 32-bit RISC CPU 
+in the Game Boy Advance. ARM Corporation is a UK-based company 
+responsible for CPUs used in cellular phones. Konami has also entered 
+a joint agreement with Nintendo, and will create a company called 
+Mobile 21. This studio will be responsible for the software that will 
+interface with the 128-bit Dolphin system. Other companies involved 
+have not been announced yet.
+
+
+Why did Nintendo release the Game Boy Color if the Game Boy Advance 
+was so close behind?
+
+It's difficult to say that the Game Boy Color was a stop-gap solution 
+between the Game Boy and Game Boy Advance. Obviously one issue was 
+giving gamers what they wanted, when the company could. During the 
+development of the Game Boy Advance (code name: Atlantis two years 
+ago) the cost to bring something like that out at that point in time 
+would be too expensive for the market to accept. The Game Boy Color, 
+on the other hand, was a more advanced system, offered color and 
+specific features, as well as backward compatibility for nearly the 
+same price as the existing Game Boy Pocket. Obviously the company 
+wanted to release a product that would be widely accepted, supported, 
+and purchased.
+
+Also, Nintendo wanted to release a new system that would integrate 
+better with its next console unit, the Dolphin. Instead of trying to 
+shoe-horn the Game Boy Color into interfacing with the Dolphin, 
+Nintendo instead integrated a handheld from scratch to work with the 
+128-bit console.
+
+When the Game Boy Advance is released next year, don't expect the 
+Game Boy Color to fade away. The Game Boy Color and Game Boy Advance 
+will co-exist for a while, until finally software development moves 
+from one platform to the other. It will be a gradual process, one 
+that may take a year or more to complete.
+
+ 

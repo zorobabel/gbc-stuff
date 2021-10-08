@@ -1,0 +1,47 @@
+Bankswitching from inside the switchable bank
+Written By Aaron St. John
+aaronstj@aol.com
+
+>  If I am in rom bank 2, can I do something like this :
+>  
+>  SWITCH_ROM_MBC1(3);
+>  whatever();
+>  SWITCH_ROM_MBC1(2);
+
+
+You can switch ROM banks from a ROM other than 0, but unless you 
+really know what your doing, you should never do it.  What will 
+happen is the code will be switched out from under the program.  
+So, the program will be running along it bank 2.  Then it switches 
+to bank 3.  Since the program counter (how the CPU keeps track of 
+where in the program you are) will point to a location that now 
+refers to bank 3, code in bank 3 will be run, not the routine you 
+were in from bank 2.  This is generally a very bad thing.  Imagaine 
+it like this.  You're reading a book.  Suddenly, the sentence you're 
+reading makes the pages turn (it's a magic book), but you keep 
+reading from the same place on the page.  What you're reading won't 
+make any sense, and you'll get confused, and (if you're a computer) 
+crash horribly.
+
+What I'd advise you to do is create a small function in bank 0 that 
+takes three parameters: a pointer to the function to run, the 
+bank number of the function, and the bank number to return to 
+when done.  So instead of 
+
+>  SWITCH_ROM_MBC1(3);
+>  whatever();
+>  SWITCH_ROM_MBC1(2);
+
+You'd use:
+
+> Call_Far(whatever,3,2);
+
+where Call_Far is a funciton you've created in bank 0.
+
+
+> Also is there a way to use data from a rom bank that i'm not 
+> currently in?
+
+The best way to accomplish this would probably be to copy the data 
+from ROM to RAM, that way you can ascess it from any ROM bank.
+

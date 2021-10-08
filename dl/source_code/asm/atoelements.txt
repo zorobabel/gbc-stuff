@@ -1,0 +1,41 @@
+Here is a routine for convering number in A register to elements. Useful for
+displaying digits using sprites or tiles.
+
+For example: input A=156
+Result:
+x100=1
+x10=5
+x1 = 6
+1*100+5*10+6*1
+
+----------------------------------------------------------------------------
+---------
+Input: A
+Output: [x1], [x10], [x100] - must be in RAM
+
+
+DecimalToElements
+ld b,0
+ld c,a
+loop_by_100:  sub 100
+jr c, continue_by_10
+inc b
+ld c,a
+jr loop_by_100
+
+continue_by_10: ld a,b
+ld [x100],a
+ld a,c
+ld b,0
+loop_by_10:  sub 10
+jr c, continue_by_1
+inc b
+ld c,a
+jr loop_by_10
+
+continue_by_1: ld a,b
+ld [x10],a
+ld a,c
+ld [x1],a
+
+ ret

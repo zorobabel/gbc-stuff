@@ -1,0 +1,45 @@
+For example: I want to calculate percentage (%), so f.e: 60% of 32 it must
+be about 19. I want to use it for changing palettes, it means if I'll call
+SetLight(80) = palettes must be 80%.
+It is not simple to use a table here.
+
+Here is my suggested code:
+
+; Input: L= % in Binary (0..32) => 0=0%  32=100%
+; B=Value (0-255)
+; Output: A=result_value
+; A=L% of B
+
+
+CalcPercentage
+
+ld h,0
+ld d,h
+ld e,l ;percentage
+ld a,b
+cp 0
+ jr z,Reset_HL
+ dec b
+
+loop_now:
+add hl,de
+dec b
+ jr nz,loop_now
+
+ jr continue_calc
+
+Reset_HL ld hl,0
+
+continue_calc
+sla h ;H*8
+sla h
+sla h
+srl l ;L/32
+srl l
+srl l
+srl l
+srl l
+
+ld a,h
+add l
+ret

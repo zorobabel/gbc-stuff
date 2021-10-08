@@ -1,0 +1,71 @@
+Obtaining VRAM addresses below sprite
+Written by Sarjarim Baku
+sarjarim@yahoo.com
+
+> Using the Y/X coords of a sprite, and the scrY/scrY register values
+> ($FF42, $FF43), could someone assist me in getting the vram addy of
+> the tile below the upper-left point of the sprite? My situation is
+> complicated somewhat by my use of 16x16 tiles. So if the sprite is at
+> 30, 22 (y,x)..the resulting vram address should be $9800 (not $9821).
+
+Off the top of my head (and untested):
+
+
+;get sprite y
+ld a,(SpriteHeight)
+ld b,a
+ld a,(SpriteY)
+sub b
+ld b,a
+
+
+;add screen y
+ld a,(SCY)
+add a,b
+
+
+;divide by 8
+srl a
+srl a
+srl a
+
+
+;extend into hl and mul by 32
+ld l,0
+ld h,a
+srl h
+rr l
+srl h
+rr l
+srl h
+rr l
+
+
+;get sprite x
+ld a,(SpriteWidth)
+ld b,a
+ld a,(SpriteX)
+sub b
+ld b,a
+
+
+;add screen x
+ld a,(SCX)
+add a,b
+
+
+;divide by 8
+srl a
+srl a
+srl a
+
+
+;extend into bc and add to hl
+ld c,a
+ld b,0
+add hl,bc
+
+
+;mask bits 0 and 4 to align to 16x16 pixel boundary
+res 0,l
+res 4,l

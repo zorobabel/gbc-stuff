@@ -1,0 +1,15 @@
+How to Download a File from my Webstie
+Written by Jason
+drunk-ass@beer.com
+
+We will use the new programming document for newbies, easygame.zip, for this experiment. However, you can easily change this to whatever you want to download.
+Step 1) Start your internet browser. (Preferably Netscape or Internet Explorer).
+Step 2) In the white box adjacent to the words Address*, type in the URL http://www.tripmode.com/gbdev/
+* - Address might be different depending on which browser you use.
+Step 3) Allow the site to load.
+Step 4) Since we are looking for a Gameboy programming document, click on the button marked GBC STUFF.
+Step 5) Allow the site to load.
+Step 6) Find the section that the document is located under. easygame.zip is a GBDK document. Thus we go to the section in big letters marked Documents. There are subdividers now. We will skip the section marked ASM or Hardware since this is a GBDK document. A little ways down is the subdivider marked GBDK.
+Step 7) We are down to 13 choices*. We can either do this by process of elimination, or we can do it by looking for the file marked easygame.zip, or we can look at the description of the documents until we find the description of the document that we want to download.
+*13 choices at creation of this document.
+Note - Remember, while looking for one document, we can probably find another document that can teach us something, so browsing through the site looking for content is not a bad thing.

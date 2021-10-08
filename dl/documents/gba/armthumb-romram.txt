@@ -1,0 +1,32 @@
+Arm/RAM vs THUMB/ROM
+Written by Tinara and Tony C.
+
+It is recommended that you use 32-bit ARM instructions in RAM and 
+16-bit THUMB instruction in ROM, which seems a bit backwards really 
+as the longer instructions are better for the smaller amount of memory.
+
+Relatively, ROM access times are butt slow, one reason that the 
+"BIOS Shadowing" option is used to speed up PC's.  I'm guessing 
+that at decent clock speeds, the ARM cpu has problems keeping 
+its instruction pipeline full when fetching 32-bit instructions 
+from ROM, THUMB instructions would allow it to fill the pipeline
+roughly twice as much, meaning less pipeline stalls that essentially 
+waste one or more CPU cycles.
+
+CPUs generally follow a  3-step process when executing an instruction:
+Fetch- Decode- Execute.  Now when you hear the term pipelining, it 
+refers to the fact that modern CPUs can implement 2 or 3 stages at 
+the same time. That is,  a CPU could be Executing  INSTR A,  while 
+Decoding INSTR B,  and Fetching INSTR C, all simultaneously.   This 
+obviously saves time over: FETCH A.  DECODE A.  EXECUTE A.   
+FETCH B. DECODE B. EXECUTE B.  (which is how the "z80" on the GB(C) 
+works).   Now from Nintendo warnings that you want to use 32 bit 
+instructions internal and 16 bit external,   the bus internally is 
+probably 32 bit and only 16 bit externally.   This means if you use 
+ARM 32 bit instructions externally,  then the CPU has to hang around
+and wait for 2 states while the FETCH gets  1/2 the instruction, 
+then the other 1/2.    Obviously this cuts down on how effecient it 
+can follow the above pipelining method.   The best it can hope to 
+do is Execute A, while FETCHing B.
+
+

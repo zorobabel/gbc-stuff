@@ -1,0 +1,26 @@
+Random Numbers between 0 and 10
+Written by Luke Valenty
+lvalenty@hotmail.com
+
+You can get some random number generater code from
+http://www.devrs.com/gb/files/random.txt, courtisy of Jeff Frohwein.  The
+code will give you a value in register A, $00 through $FF.  To get ten, just
+use this code:
+
+
+
+    and    $0F    ;get right half, 0-15 (this instruction may not be needed)
+    cp    10        ; check if over 10
+    jr    c,    3       ;is it?
+    jp    nz,    tena ;yep
+done:
+(whatever goes here, ret, jp, whatever you need)
+
+
+tena:                ;yep,  change back to ten
+    ld    a,    10
+    ret
+
+
+this is just some code i wrote quick, you probably want to test it
+you probably could also use a table, whatever you need

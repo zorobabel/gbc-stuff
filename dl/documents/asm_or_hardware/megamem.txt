@@ -1,0 +1,53 @@
+MegaMem Powerup Logo
+Written by Ken Kaarvik
+kkaarvik@direct.ca
+
+After reading on this list a couple weeks ago that the MegaMem cartridge
+boots up with it's own logo ("MegaMem") and still works on a GBC, I just had
+to get one.
+
+Since I don't have a logic analyzer - I had to use the next best thing - a
+GB.
+
+Here's a program I wrote to help me figure out what happens when power is
+applied to the MegaMem cart.
+http://www.geocities.com/kkaarvik/cartless.zip
+(description in the source code)
+USE AT YOUR OWN RISK! This program copies program code and places it in ram
+then "stops". You then have to pull out your flash cart, push any button,
+and finally insert the MegaMem cart. I have tried this with a homemade
+cartridge (AMD29F040) but not with a bung cart (I don't have one to try) USE
+AT YOUR OWN RISK!
+
+Here's how it boots up (as far as I can tell!)
+On power up (of MegaMem cart)
+"Nintendo" logo is present for 16 msec
+"MegaMem"  logo is present for 183 msec
+"Nintendo" logo is present for 83 msec
+"MegaMem"  logo is present for 484 msec
+"Nintendo" logo is present forever
+
+These values are not precise (they are muliples of 16.7msec)
+I have assumed a few things - I'm only reading location $0104, not sampling
+faster than every 16msec - so let me know if there is more to this powerup
+logo!
+
+I was a little off on my timing. I was able to measure what the MegaMem cart
+was doing on startup using a demo version of a PC parallel logic analyzer
+http://www.logixell.com/
+
+The MegaMem cart has an 8 pin microcontroller (PIC12C508A) that toggles the
+memory bank a couple of times on power up.
+
+I have been able to do the same thing and boot up with a custom logo on both
+a pocket gb AND a color gb.
+
+Here's the timing that I got to work
+
+powerup with "Nintendo"
+"Nintendo" logo present for 19.2ms after reset
+Custom logo present for 89.6ms
+"Nintendo" logo present for 46.4ms
+Custom logo present for 262.7ms
+"Nintendo" logo present forever
+

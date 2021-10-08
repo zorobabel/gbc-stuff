@@ -1,0 +1,15 @@
+10 Sprite Limit
+Written by Jason
+drunk-ass@beer.com
+
+There are a few ways of handling more than 10 sprites per line...
+
+1) Easiest way - although not the most effective way, is just to prioritize the sprites so that the sprites that aren't being displayed are not crucial to gameplay. I used this in Robotech - Exit Planet Dust. Rather than have bullets or enemies or the player disappear, the sprites dropped are the shadow effects of the player and enemy, both rather useless for the gameplay. This is easily handled by using the sprite number (0-39). The closer to 0, the higher the priority over other sprites.
+
+2)Update the sprites positions every vertical blank. While this isn't the most effective way, the way the gameboy's screen is interlaced there will be lines where the sprites won't be drawn, but they will still be displayed.
+
+3) Update the sprites every other vertical blank. Thus you're still getting 15 updates a second. Flickers, but not too horribly. 
+
+4) Use background tiles. Games such as Space Invaders use this to draw more than 10 sprites per line. You can then use SCX_REG and SCY_REG to move the "sprites". Of course, this does put limits on the background. To make the "sprites" move smoothly on a constant background you will have to have 8 unique tiles per each 8x8 tile you intend to move.
+
+There is no horizontal blank trick I know of. The horizontal blank trick does allow more than 40 sprites to be displayed, however it will not help the 10 sprites really since the screen is drawn horizontally. You could do basically the same thing as idea #2 during horizontal blank, but the benefits won't outweigh the amount of work you will have to put into it.

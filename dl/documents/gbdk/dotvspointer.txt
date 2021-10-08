@@ -1,0 +1,43 @@
+Dot Operator Vs Pointer
+Written by Jan-Lieuwe Koopmans
+moa@gelrevision.nl
+
+I guess that using a pointer requires reading a word from a
+pointer-variable, so it would generate code like:
+
+
+; addressing using pointer
+
+
+ld HL,<address of pointer-var>
+ld E,[HL]
+inc HL
+ld D,[HL]
+ld HL,<offset within struct>
+add HL,DE
+
+
+the resulting pointer is in HL now.
+
+
+With a fixed struct (where you can use the dot operator instead of '->') the
+address of the struct is know at compile time, so it would look like:
+
+
+ld HL,<address of struct>
+ld DE,<offset within struct>
+add HL,DE
+
+
+or (if you have a better compiler):
+
+
+ld HL,<address of struct> + <offset withing struct>
+
+
+(Both are known at compile-time).
+
+
+So using the dot operator should be more efficient. Now *don't* start
+passing around complete structures as parameters / return value. Passing
+pointers to structures (by reference) is always more efficient on any CPU.
